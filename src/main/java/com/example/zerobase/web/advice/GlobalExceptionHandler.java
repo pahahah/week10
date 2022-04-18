@@ -14,16 +14,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ZerobaseException.class)
     public ResponseEntity<ErrorResult> runtimeException(ZerobaseException e) {
         ExceptionCode code = e.getCode();
-
-        return getResponseEntity(code);
-    }
-
-
-    private ResponseEntity getResponseEntity(ExceptionCode code) {
         ErrorResult errorResult = ErrorResult.builder()
                 .code(code.name())
                 .message(code.getMessage())
                 .build();
         return new ResponseEntity(errorResult, code.getStatus());
     }
+
 }
